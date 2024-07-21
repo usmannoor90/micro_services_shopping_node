@@ -62,11 +62,14 @@ module.exports = (app) => {
   app.put("/wishlist", UserAuth, async (req, res, next) => {
     const { _id } = req.user;
 
+    const productId = req.body._id;
     try {
-      const product = await service.GetProductById(req.body._id);
+      const product = await service.GetProductById(productId);
       const wishList = await customerService.AddToWishlist(_id, product);
       return res.status(200).json(wishList);
-    } catch (err) {}
+    } catch (err) {
+      next(err);
+    }
   });
 
   app.delete("/wishlist/:id", UserAuth, async (req, res, next) => {

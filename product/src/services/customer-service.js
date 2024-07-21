@@ -123,6 +123,9 @@ class CustomerService {
         customerId,
         product
       );
+
+      console.log(wishlistResult);
+
       return FormateData(wishlistResult);
     } catch (err) {
       throw new APIError("Data Not found", err);
